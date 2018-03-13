@@ -4,7 +4,7 @@ api: 3.0.0-ALPHA11
 description: A custom Repair PE plugin, provided by VoidFactionsPE and not meant for other servers.
 version: 1.0.0-ALPHA
 main: RepairPE\Main
-ommands:
+commands:
     repair:
         description: Checks a list of timed ranks command.
         permission: repair.use
