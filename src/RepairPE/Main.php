@@ -22,8 +22,8 @@ public function onDisable(){
 public function onCommand(CommandSender $sender, Command $command, string $labal, array $args) : bool{
     if(strtolower($command->getName()) == "repair") {
         if($sender->hasPermission("repair.use")){
-       if (empty($args)) {
-           $sender->sendMessage(TextFormat::GOLD . "Please use /repair all|hand");
+        if(!isset($args[0])){
+            $sender->sendMessage(TextFormat::GOLD . "Please use /repair all|hand");
            return true;
        }
 if ($args[0] == "all") {
