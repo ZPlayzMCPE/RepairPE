@@ -24,32 +24,35 @@ public function onCommand(CommandSender $sender, Command $command, string $labal
         if($sender->hasPermission("repair.use")){
         if(!isset($args[0])){
             $sender->sendMessage(TextFormat::GOLD . "Please use /repair all|hand");
-            return true;
+           return true;
        }
 if ($args[0] == "all") {
     if ($sender->hasPermission("repair.all")){
     if (!$sender instanceof Player) {
+            $sender = getInventory()->getContents();
             
-            foreach($sender->getInventory()->getContents() as $item){
+            foreach($sender->getInventory()->getContents() as $i => $item){
             $item->setDamage(0);
             $sender->sendMessage(TextFormat::GREEN . "You have repaired everything in your inventory.");
             return true;
             }
+            $sender = getArmorInventory()->getContents();
     }
-    foreach($sender->getArmorInventory()->getContents as $item){
+    foreach($sender->getArmorInventory()->getContents() as $i => $item){
             $sender->sendMessage(TextFormat:: GREEN . "Including your equipped armour.");
             return true;
     }
     if ($args[0] == "hand") {
         if ($sender->hasPermission("repair.hand")){
-        foreach($this->getInventory->getContents() as $item){
+        foreach($this->getInventory->getContents() as $i => $item){
         }
            $sender->sendMessage(TextFormat::RED . "This item cannot be repaired because it has not been broken.");
            return true;
         }
     
-        $sender->getInventory()->getItemInHand()->setDamage(0);
-        $item->setDamage(0);
+        $sender->getInventory()->getItemInHand();
+        $item->setDamage(0, true);
+        $sender->getInventory()->setItem($i, $item, true);
         $sender->sendMessage(TextFormat::GREEN . "The item named $item has been repaired succesfully.");
         return true;
         }
