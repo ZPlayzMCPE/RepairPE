@@ -20,7 +20,7 @@ public function onDisable(){
     $this->getLogger()->info("Plugin has been disabled. Did the server stop?");
 }
 public function onCommand(CommandSender $sender, Command $command, string $labal, array $args) : bool{
-    if(strtolower($command->getName()) === "repair") {
+    if(strtolower($command->getName()) == "repair") {
         if($sender->hasPermission("repair.use")){
        if (empty($args)) {
            $sender->sendMessage(TextFormat::GOLD . "Please use /repair all|hand");
