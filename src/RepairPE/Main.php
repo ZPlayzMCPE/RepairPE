@@ -29,14 +29,12 @@ public function onCommand(CommandSender $sender, Command $command, string $labal
 if ($args[0] == "all") {
     if ($sender->hasPermission("repair.all")){
     if (!$sender instanceof Player) {
-            $sender = getInventory()->getContents();
             
             foreach($sender->getInventory()->getContents() as $item){
             $item->setDamage(0);
             $sender->sendMessage(TextFormat::GREEN . "You have repaired everything in your inventory.");
             return true;
             }
-            $sender = getArmorInventory()->getContents();
     }
     foreach($sender->getArmorInventory()->getContents as $item){
             $sender->sendMessage(TextFormat:: GREEN . "Including your equipped armour.");
