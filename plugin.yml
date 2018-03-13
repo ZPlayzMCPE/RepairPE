@@ -1,0 +1,18 @@
+name: RepairPE
+author: Zeao
+api: 3.0.0-ALPHA11
+description: A custom Repair PE plugin, provided by VoidFactionsPE and not meant for other servers.
+version: 1.0.0-ALPHA
+main: RepairPE\Main
+ommands:
+    repair:
+        description: Checks a list of timed ranks command.
+        permission: repair.use
+permissions:
+  repair.use:
+      default: false
+      children:
+          repair.all:
+          default: false
+          repair.hand:
+          default: false
