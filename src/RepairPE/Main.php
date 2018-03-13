@@ -24,7 +24,7 @@ public function onCommand(CommandSender $sender, Command $command, string $labal
         if($sender->hasPermission("repair.use")){
         if(!isset($args[0])){
             $sender->sendMessage(TextFormat::GOLD . "Please use /repair all|hand");
-           return true;
+            return true;
        }
 if ($args[0] == "all") {
     if ($sender->hasPermission("repair.all")){
