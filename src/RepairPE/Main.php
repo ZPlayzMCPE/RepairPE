@@ -3,6 +3,8 @@
 namespace RepairPE;
 
 use pocketmine\plugin\PluginBase;
+use pocketmine\command\CommandSender;
+use pocketmine\command\Command;
 use pocketmine\event\Listener;
 use pocketmine\item\item;
 use pocketmine\inventory\inventory;
