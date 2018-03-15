@@ -7,6 +7,9 @@ use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
+use pocketmine\inventory\Inventory;
+use pocketmine\inventory\ArmorInventory;
+
 class Main extends PluginBase implements Listener
 {
     public function onEnable()
@@ -30,12 +33,12 @@ class Main extends PluginBase implements Listener
                         if ($sender instanceof Player) {
                             foreach ($sender->getInventory()->getContents() as $item) {
                                 $item->setDamage(0);
-                                $item->setItem($item);
+                                $inventory->setItem($item);
                                 return true;
                             }
                             foreach ($sender->getArmorInventory()->getContents() as $item) {
                                 $item->setDamage(0);
-                                $item->setItem($item);
+                                $inventory->setItem($item);
                                 return true;
                             }
                             $sender->sendMessage(TextFormat::GREEN . "You have repaired everything in your inventory.");
@@ -45,7 +48,8 @@ class Main extends PluginBase implements Listener
                 if ($args[0] == "hand") {
                     if ($sender->hasPermission("repair.hand")) {
                         if ($sender instanceof Player) {
-                            $sender->getInventory()->getItemInHand()->setDamage(0)->setItem($item, true);
+                            $sender->getInventory()->getItemInHand()->setDamage(0);
+                            $sender->getInventory()->getItemInHand()->setItem($item);
                             $sender->sendMessage(TextFormat::GREEN . "You have repaired the item in your hand.");
                         }
                     }
