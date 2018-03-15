@@ -7,6 +7,7 @@ use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
+use pocketmine\item\Item;
 use pocketmine\inventory\{PlayerInventory, ArmorInventory, Inventory};
 
 class Main extends PluginBase implements Listener
@@ -31,13 +32,13 @@ class Main extends PluginBase implements Listener
                     if ($sender->hasPermission("repair.all")) {
                         if ($sender instanceof Player) {
                             foreach ($sender->getInventory()->getContents() as $item) {
-                                $item->setDamage(0);
-                                $inventory->setItem($item);
+                                $item->setDamage(0, true);
+                                $sender->getInventory()->setItem($item);
                                 return true;
                             }
                             foreach ($sender->getArmorInventory()->getContents() as $item) {
-                                $item->setDamage(0);
-                                $inventory->setItem($item);
+                                $item->setDamage(0, true);
+                                $sender->getInventory()->setItem($item);
                                 return true;
                             }
                             $sender->sendMessage(TextFormat::GREEN . "You have repaired everything in your inventory.");
@@ -47,8 +48,7 @@ class Main extends PluginBase implements Listener
                 if ($args[0] == "hand") {
                     if ($sender->hasPermission("repair.hand")) {
                         if ($sender instanceof Player) {
-                            $sender->getInventory()->getItemInHand()->setDamage(0);
-                            $sender->getInventory()->getItemInHand()->setItem($item);
+                            $sender->getInventory()->getItemInHand()->setDamage(0, true);
                             $sender->sendMessage(TextFormat::GREEN . "You have repaired the item in your hand.");
                         }
                     }
