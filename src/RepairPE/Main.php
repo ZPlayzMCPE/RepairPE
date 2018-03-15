@@ -1,6 +1,6 @@
 <?php
 
-namespace ItemRepair;
+namespace RepairPE;
 
 use pocketmine\command\{Command, CommandSender};
 use pocketmine\event\Listener;
