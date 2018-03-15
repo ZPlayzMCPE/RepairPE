@@ -43,23 +43,18 @@ if ($args[0] == "all") {
             return true;
     }
     if ($args[0] == "hand") {
-        if ($sender->hasPermission("repair.hand")){
-        foreach($this->getInventory->getContents() as $i => $item){
+                   if ($sender->hasPermission("repair.hand")) {
+                       if ($sender instanceof Player) {
+                           $sender->getInventory()->getItemInHand()->setDamage(0, true);
+                           $sender->getInventory()->setItem($i, $item, true);
+                           $sender->sendMessage(TextFormat::GREEN . "The item named $item has been repaired succesfully.");
+                        }
+                    }
+                    return true;
+                }
+            }
         }
-           $sender->sendMessage(TextFormat::RED . "This item cannot be repaired because it has not been broken.");
-           return true;
-        }
-    
-        $sender->getInventory()->getItemInHand();
-        $item->setDamage(0, true);
-        $sender->getInventory()->setItem($i, $item, true);
-        $sender->sendMessage(TextFormat::GREEN . "The item named $item has been repaired succesfully.");
         return true;
-        }
-        }
     }
-        }
-    }
-    return true;
 }
-}
+   
