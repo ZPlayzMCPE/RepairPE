@@ -1,53 +1,52 @@
 <?php
 
-namespace RepairPE;
+namespace ItemRepair;
 
-use pocketmine\plugin\PluginBase;
-use pocketmine\command\CommandSender;
-use pocketmine\command\Command;
+use pocketmine\command\{Command, CommandSender};
 use pocketmine\event\Listener;
-use pocketmine\item\item;
-use pocketmine\inventory\inventory;
-use pocketmine\inventory\ArmourInventory;
+use pocketmine\Player;
+use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
-
-class Main extends PluginBase implements Listener {
-    
-public function onEnable(){
-    $this->getLogger()->info("Plugin has been enabled. Let the repairing begin!");
-}
-public function onDisable(){
-    $this->getLogger()->info("Plugin has been disabled. Did the server stop?");
-}
-public function onCommand(CommandSender $sender, Command $command, string $labal, array $args) : bool{
-    if(strtolower($command->getName()) == "repair") {
-        if($sender->hasPermission("repair.use")){
-        if(!isset($args[0])){
-            $sender->sendMessage(TextFormat::GOLD . "Please use /repair all|hand");
-           return true;
-       }
-if ($args[0] == "all") {
-    if ($sender->hasPermission("repair.all")){
-    if (!$sender instanceof Player) {
-            $sender = getInventory()->getContents();
-            
-            foreach($sender->getInventory()->getContents() as $i => $item){
-            $item->setDamage(0);
-            $sender->sendMessage(TextFormat::GREEN . "You have repaired everything in your inventory.");
-            return true;
-            }
-            $sender = getArmorInventory()->getContents();
+class Main extends PluginBase implements Listener
+{
+    public function onEnable()
+    {
+        $this->getLogger()->info("§bItem Repair enabled!");
     }
-    foreach($sender->getArmorInventory()->getContents() as $i => $item){
-            $sender->sendMessage(TextFormat:: GREEN . "Including your equipped armour.");
-            return true;
+    public function onDisable()
+    {
+        $this->getLogger()->info("§bItem Repair disabled!");
     }
-    if ($args[0] == "hand") {
-                   if ($sender->hasPermission("repair.hand")) {
-                       if ($sender instanceof Player) {
-                           $sender->getInventory()->getItemInHand()->setDamage(0, true);
-                           $sender->getInventory()->setItem($i, $item, true);
-                           $sender->sendMessage(TextFormat::GREEN . "The item named $item has been repaired succesfully.");
+    public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool
+    {
+        if (strtolower($command->getName()) == "repair") {
+            if ($sender->hasPermission("repair.use")) {
+                if (!isset($args[0])) {
+                    $sender->sendMessage(TextFormat::GOLD . "Please use /repair all|hand");
+                    return true;
+                }
+                if ($args[0] == "all") {
+                    if ($sender->hasPermission("repair.all")) {
+                        if ($sender instanceof Player) {
+                            foreach ($sender->getInventory()->getContents() as $item) {
+                                $item->setDamage(0);
+                                $item->setItem($item);
+                                return true;
+                            }
+                            foreach ($sender->getArmorInventory()->getContents() as $item) {
+                                $item->setDamage(0);
+                                $item->setItem($item);
+                                return true;
+                            }
+                            $sender->sendMessage(TextFormat::GREEN . "You have repaired everything in your inventory.");
+                        }
+                    }
+                }
+                if ($args[0] == "hand") {
+                    if ($sender->hasPermission("repair.hand")) {
+                        if ($sender instanceof Player) {
+                            $sender->getInventory()->getItemInHand()->setDamage(0)->setItem($item, true);
+                            $sender->sendMessage(TextFormat::GREEN . "You have repaired the item in your hand.");
                         }
                     }
                     return true;
@@ -57,4 +56,3 @@ if ($args[0] == "all") {
         return true;
     }
 }
-   
