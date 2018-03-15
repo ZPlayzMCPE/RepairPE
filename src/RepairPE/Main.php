@@ -60,5 +60,6 @@ if ($args[0] == "all") {
     }
         }
     }
+    return true;
 }
 }
