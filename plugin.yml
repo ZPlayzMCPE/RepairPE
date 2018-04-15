@@ -6,7 +6,7 @@ version: 1.0.0-ALPHA
 main: RepairPE\Main
 commands:
     repair:
-        description: Checks a list of timed ranks command.
+        description: Repair command.
         permission: repair.use
 permissions:
   repair.use:
