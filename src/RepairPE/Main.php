@@ -55,7 +55,7 @@ if ($args[0] == "all") {
         if ($sender->hasPermission("repair.hand")){
         foreach($this->getInventory->getContents() as $i => $item){
         }
-        if (!$this->getAPI()->isRepairable($sender->getInventory()->getItemInHand())) {
+        if (!$this->isRepairable($sender->getInventory()->getItemInHand())) {
         $sender->sendMessage(TextFormat::RED . "This item cannot be repaired because it has not been broken.");
         return true;
         }
