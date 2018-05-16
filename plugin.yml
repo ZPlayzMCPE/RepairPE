@@ -7,7 +7,6 @@ main: RepairPE\Main
 commands:
     repair:
         description: Repair command.
-        permission: repair.use
 permissions:
   repair.use:
       default: false
